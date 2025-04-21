@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,23 @@ const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
   const [activeTopic, setActiveTopic] = useState(null);
   const [activeCareer, setActiveCareer] = useState(null);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      const isScrollingUp = prevScrollPos > currentScrollPos;
+      const isAtTop = currentScrollPos < 10;
+
+      setVisible(isScrollingUp || isAtTop);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
 
   const handleMouseEnter = (menu) => {
     setOpenDropdown(menu);
@@ -65,7 +82,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white/70 backdrop-blur-sm shadow-lg fixed w-[80%] left-1/2 -translate-x-1/2 top-10 rounded-full z-50">
+    <nav 
+      className={`bg-white/70 backdrop-blur-sm shadow-lg fixed w-[80%] left-1/2 -translate-x-1/2 rounded-full z-[100] transition-all duration-300 ${
+        visible ? 'top-2 opacity-100' : '-top-24 opacity-0'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}
@@ -75,8 +96,11 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
-            <Link to="/#home" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 text-base font-medium">
+            <Link to="/" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 text-base font-medium">
               Home
+            </Link>
+            <Link to="/contact" className="text-gray-700 hover:text-blue-600 transition-colors duration-200 text-base font-medium">
+              Contact
             </Link>
 
             {/* Services Dropdown */}
@@ -225,11 +249,18 @@ const Navbar = () => {
             {/* Mobile Navigation Links */}
             <div className="flex flex-col space-y-4">
               <Link
-                to="/#home"
+                to="/"
                 className="text-gray-700 hover:text-blue-600 py-2 text-center text-lg font-medium"
                 onClick={closeNavAndNavigate}
               >
                 Home
+              </Link>
+              <Link
+                to="/contact"
+                className="text-gray-700 hover:text-blue-600 py-2 text-center text-lg font-medium"
+                onClick={closeNavAndNavigate}
+              >
+                Contact
               </Link>
 
               {/* Mobile Services Dropdown */}

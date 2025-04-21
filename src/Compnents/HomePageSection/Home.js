@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Banner1 from "./Banner1";
 import Services from "./Services";
-import Solution from "./Solution";
-import TopicsComponent from "./TopicComponent";
-import OwerClientSlider from "./OwerClientSlider";  // Changed from OurClientSlider
+import OurServices from './OurServices';
+// import Solution from "./Solution";
+// import TopicsComponent from "./TopicComponent";
+import OwerClientSlider from "./OwerClientSlider";
 import WhyUs from "./WhyUs";
 import Card from "./Card";
 import BrandScrolling from "./BrandScrolling";
@@ -12,6 +13,9 @@ import AboutUs from "./Aboutus";
 import ContactUs from "./ContactUs";
 
 const Home = () => {
+  const [activeCareer, ] = useState();
+  const [activeTopic, setActiveTopic] = useState("all");
+
   return (
     <div className="relative w-full overflow-x-hidden">
       <div className="bg-gradient-to-r from-blue-100 via-blue-400 to-[#f2effd] w-full">
@@ -26,11 +30,20 @@ const Home = () => {
             </div>
           </div>
         </div>
+        
+        <div className="py-10 bg-gray-50">
+          <Services 
+            activeCareer={activeCareer}
+          />
+        </div>
 
-        <Services />
-        <Solution />
-        <TopicsComponent />
-        <OwerClientSlider />  {/* Changed from OurClientSlider */}
+        <OurServices />
+        {/* <Solution /> */}
+        {/* <TopicsComponent
+          activeTopic={activeTopic}
+          setActiveTopic={setActiveTopic}
+        /> */}
+        <OwerClientSlider />
         <WhyUs />
         <Card />
         <BrandScrolling />
@@ -43,6 +56,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-

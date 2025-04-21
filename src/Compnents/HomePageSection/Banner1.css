@@ -17,7 +17,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  height: 50%;
+  height: 500%;
   background: linear-gradient(
     0deg, 
     rgba(146, 213, 252, 0.8) 0%,
@@ -29,8 +29,8 @@
 
 .main-radar-image {
   position: absolute;
-  width: 150%;
-  height: 150%;
+  width: 100vw;  /* Use viewport width */
+  height: 100vh; /* Use viewport height */
   max-width: none;
   max-height: none;
   top: 50%;
@@ -39,10 +39,12 @@
   pointer-events: none;
   filter: brightness(1.2) contrast(1.1);
   z-index: 5;
+  object-fit: cover; /* Ensures image covers the area without distortion */
+  object-position: center; /* Centers the image */
 }
 
 .animate-bounce {
-  animation: bounce 4s infinite;
+  animation: bounce 5s infinite;
 }
 
 @keyframes bounce {
@@ -57,9 +59,13 @@
 }
 
 .slider-content {
-  max-width: 100%;
+  position: relative;
+  z-index: 4;
+  width: 90%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem;
+  text-align: center;
 }
 
 .content {
@@ -68,14 +74,10 @@
   margin: 0 auto;
 }
 
-@media (max-height: 768px) {
-  .slider-content {
-    margin: 1rem auto;
-  }
-  
-  .content img {
-    max-height: 120px;
-    width: auto;
+/* Ensure full height on all screen sizes */
+@media screen and (max-height: 768px) {
+  #home {
+    min-height: 100vh;
   }
 }
 
@@ -179,12 +181,17 @@
   position: relative;
   isolation: isolate;
   height: 100vh;
+  width: 100%;
   overflow: hidden;
   background: linear-gradient(
     135deg,
     rgba(243, 244, 246, 0.95) 0%,
     rgba(229, 231, 235, 0.95) 100%
   );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
 }
 
 /* Add this new class for bottom shadow */
@@ -211,34 +218,38 @@
 
 .radar-container {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200vmax;
+  height: 200vmax;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  opacity: 0.7;  /* Increased from 0.35 */
+  opacity: 0.9;
   z-index: 5;
   filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
 }
 
 .radar-sweep {
   position: absolute;
-  width: 200vmax;
-  height: 200vmax;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background: conic-gradient(
     from 0deg,
-    rgba(255, 255, 255, 0.4) 0deg,    /* Increased opacity */
+    rgba(255, 255, 255, 0.4) 0deg,
     rgba(255, 255, 255, 0.6) 30deg,   
     rgba(255, 255, 255, 0.8) 60deg,   
     rgba(255, 255, 255, 0.9) 80deg,   
     transparent 90deg
   );
-  animation: radarSweep 8s linear infinite; /* Changed from 4s to 8s */
+  animation: radarSweep 8s linear infinite;
   box-shadow: 
     0 0 100px rgba(255, 255, 255, 0.5),
     inset 0 0 100px rgba(255, 255, 255, 0.4);
-  opacity: 0.95;  /* Increased from 0.9 */
+  opacity: 0.95;
 }
 
 .radar-grid {
@@ -265,6 +276,17 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes moveToCenter {
+  from {
+    bottom: -50%;
+    right: -50%;
+  }
+  to {
+    bottom: -100%;
+    right: -100%;
   }
 }
 

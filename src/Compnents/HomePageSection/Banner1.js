@@ -27,11 +27,11 @@ const Banner1 = () => {
   }, []);
 
   return (
-    <div id="home" className="w-full min-h-screen bg-gray-100 relative flex items-center justify-center pt-16 md:pt-0 overflow-hidden">
+    <div id="home" className="w-full h-screen bg-gray-100 relative flex items-center justify-center overflow-hidden" style={{ marginTop: '0px' }}> {/* Removed negative margin */}
       {/* Background Images */}
       <div className="absolute inset-0 bg-black/5">
-        {/* Desktop Image Layout - Unchanged */}
-        <div className="hidden md:flex h-full">
+        {/* Desktop Image Layout */}
+        <div className="hidden md:flex h-screen"> {/* Changed h-full to h-screen */}
           <div className="h-full w-1/2">
             <img
               src="/images/iinsaf_2.jpg"
@@ -49,7 +49,7 @@ const Banner1 = () => {
         </div>
 
         {/* Mobile Image Layout */}
-        <div className="md:hidden h-full">
+        <div className="md:hidden h-screen"> {/* Changed h-full to h-screen */}
           <img
             src="/images/iinsaf-home.jpeg"
             alt="IINSAF Home"
