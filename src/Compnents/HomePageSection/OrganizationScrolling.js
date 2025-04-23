@@ -66,7 +66,7 @@ const OrganizationScrolling = () => {
       <div className="container mx-auto px-4 py-12">
         {/* Enhanced Header Section */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-3 ">
+          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-3">
             <span className="text-red-500">ii</span>nsaf Organization
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto mb-4 rounded-full"></div>

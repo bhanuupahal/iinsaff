@@ -122,8 +122,8 @@ const Footer = () => {
                     <FontAwesomeIcon icon={faLocationDot} className="text-sm" />
                   </div>
                   <address className="text-gray-200 text-center sm:text-left not-italic text-sm sm:text-base">
-                    419 ,Sunder Nagar,Hisar<br />
-                   125001, India 
+                    419,Sunder Nagar,<br />
+                    Hisar, Haryana - 125001
                   </address>
                 </div>
               </li>
@@ -186,7 +186,7 @@ const privacyLinks = [
 
 const contactInfo = [
   { type: 'phone', icon: faPhone, value: '+91 99923-96623', href: 'tel:+919992396623' },
-  { type: 'email', icon: faEnvelope, value: 'iinsafgroup@gmail.com', href: 'mailto:iinsafgroup@gmail.com' },
+  { type: 'email', icon: faEnvelope, value: 'iinsafgroup@gamil.com', href: 'mailto:iinsafgroup@gamil.com' },
 ];
 
 export default Footer;

@@ -51,15 +51,15 @@ const Banner1 = () => {
         {/* Mobile Image Layout */}
         <div className="md:hidden h-screen"> {/* Changed h-full to h-screen */}
           <img
-            src="/images/iinsaf-home.jpeg"
-            alt="IINSAF Home"
+            src="/images/iinsaf_2.jpg"
+            alt="IINSAF Home "
             className="w-full h-full object-cover opacity-95 bright-image"
           />
         </div>
       </div>
 
-      {/* Radar Effect - Hidden on mobile */}
-      <div className="radar-container hidden md:block">
+      {/* Radar Effect - Show on all screens */}
+      <div className="radar-container block"> {/* Removed hidden md:block */}
         <div className="radar-glow"></div>
         <div className="radar-grid"></div>
         <div className="radar-sweep"></div>
@@ -81,7 +81,7 @@ const Banner1 = () => {
         {currentSlide === 1 && (
           <div className="content animate-fade-in px-4 md:px-0">
             <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 text-gray-900 animate-slide-up drop-shadow-lg">
-              Welcome to <span className="text-red-700 font-black">II</span>NSAF
+              Welcome to <span className="text-red-700 font-black">ii</span>nsaf
             </h1>
             <p className="text-sm md:text-xl mt-2 md:mt-4 animate-slide-up delay-100 font-medium text-gray-1000 drop-shadow-md px-2">
               <span className="text-red-700 font-bold">International Influencing</span> News Social Media Advertisement Federation
@@ -196,3 +196,5 @@ const Banner1 = () => {
 };
 
 export default Banner1;
+
+

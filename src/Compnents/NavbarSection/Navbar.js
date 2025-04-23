@@ -83,7 +83,7 @@ const Navbar = () => {
 
   return (
     <nav 
-      className={`bg-white/70 backdrop-blur-sm shadow-lg fixed w-[80%] left-1/2 -translate-x-1/2 rounded-full z-[100] transition-all duration-300 ${
+      className={`bg-white/70 backdrop-blur-sm shadow-lg fixed w-[80%] left-1/2 -translate-x-1/2 rounded-xl z-[100] transition-all duration-300 ${
         visible ? 'top-2 opacity-100' : '-top-24 opacity-0'
       }`}
     >

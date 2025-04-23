@@ -218,7 +218,7 @@
 
 .radar-container {
   position: absolute;
-  top: 50%;
+  top: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 200vmax;
@@ -249,7 +249,7 @@
   box-shadow: 
     0 0 100px rgba(255, 255, 255, 0.5),
     inset 0 0 100px rgba(255, 255, 255, 0.4);
-  opacity: 0.95;
+  opacity: 2.95;
 }
 
 .radar-grid {
@@ -512,14 +512,16 @@ h1, p {
 
 @media screen and (max-width: 480px) {
   .radar-container {
-    display: none;
+    opacity: 0.5;
+    width: 300vmax; /* Even larger for smaller screens */
+    height: 300vmax;
   }
 
   .gradient-overlay {
     background: linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(0, 0, 0, 0.1) 100%
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(0, 0, 0, 0.2) 100%
     );
   }
 }
@@ -569,14 +571,30 @@ h1, p {
   }
 
   .radar-container {
-    display: none;
+    width: 250vmax; /* Adjusted size for mobile */
+    height: 250vmax;
+    opacity: 0.6; /* Reduced opacity for better text visibility */
+    top: 120%; /* Adjusted position */
+  }
+
+  .radar-sweep {
+    opacity: 1.5; /* Reduced sweep opacity */
+  }
+
+  .radar-grid {
+    opacity: 0.3; /* Reduced grid opacity */
+  }
+
+  .radar-dot {
+    width: 3px; /* Slightly smaller dots */
+    height: 3px;
   }
 
   .gradient-overlay {
     background: linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.3) 0%,
-      rgba(0, 0, 0, 0.2) 100%
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(0, 0, 0, 0.3) 100%
     );
   }
 
@@ -700,3 +718,6 @@ h1, p {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
+
+
+

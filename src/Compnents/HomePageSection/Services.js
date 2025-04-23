@@ -93,7 +93,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
     {
       title: "Website",
       description: "",
-      bgColor: "bg-blue-200",
+      bgColor: "bg-blue-100",
       iconBgColor: "bg-blue-500",
       iconColor: "text-blue-600",
       image: "/assets/marketer.png",

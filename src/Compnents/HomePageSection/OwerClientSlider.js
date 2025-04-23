@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
 
 const OwerClientSlider = () => {
     const [backgroundImage, setBackgroundImage] = useState('/CompanyImages/iinfra_back.webp');
@@ -9,9 +15,9 @@ const OwerClientSlider = () => {
 
     // Use placeholder images instead of actual imports
     const companies = [
-        '/CompanyImages/MeharTech.png',
+        '/CompanyImages/mehartech.png',
         '/CompanyImages/iinfra icon.png',
-        '/CompanyImages/GJU.png',
+        '/CompanyImages/gju.png',
         '/CompanyImages/iinsaf blood logo.png'
     ];
 
@@ -212,7 +218,43 @@ const OwerClientSlider = () => {
                             Companies That Trust Us
                         </h3>
                     </div>
-                    {renderPartners()}
+                    
+                    {/* Desktop view */}
+                    <div className="hidden md:block">
+                        {renderPartners()}
+                    </div>
+
+                    {/* Mobile view with Swiper */}
+                    <div className="block md:hidden">
+                        <Swiper
+                            modules={[Autoplay]}
+                            spaceBetween={20}
+                            slidesPerView={1}
+                            loop={true}
+                            speed={800}
+                            autoplay={{
+                                delay: 3000,
+                                disableOnInteraction: false,
+                            }}
+                            className="w-full"
+                        >
+                            {companies.map((company, index) => (
+                                <SwiperSlide key={index}>
+                                    <div className="group relative p-6">
+                                        <div className="backdrop-blur-sm rounded-xl p-4 transition-all duration-300">
+                                            <div className="bg-white/10 rounded-3xl p-4 hover:bg-gradient-to-b hover:from-blue-800 hover:via-indigo-900 hover:to-purple-900 shadow-lg hover:shadow-[0_0_25px_10px_rgba(59,130,246,0.4)] transition-all duration-300">
+                                                <img 
+                                                    className="h-24 w-auto mx-auto relative z-10 transform transition-all duration-500 group-hover:scale-110"
+                                                    src={company} 
+                                                    alt={`Partner ${index + 1}`}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
                 </div>
             </div>
 
@@ -240,3 +282,4 @@ const OwerClientSlider = () => {
 };
 
 export default OwerClientSlider;
+

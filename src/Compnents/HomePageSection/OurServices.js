@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const OurServices = () => {
+  const navigate = useNavigate();
   const [activeService, setActiveService] = useState('reporting');
 
   useEffect(() => {
@@ -17,7 +19,8 @@ const OurServices = () => {
       image: "/assets/reporter.png",
       bgColor: "bg-blue-100",
       hoverBgColor: "hover:bg-blue-200",
-      iconBg: "bg-blue-500"
+      iconBg: "bg-blue-500",
+      link: "/OurSerSection/ReportingServices"
     },
     advertising: {
       title: "Advertising",
@@ -26,7 +29,8 @@ const OurServices = () => {
       image: "/assets/advertiser.png",
       bgColor: "bg-purple-100",
       hoverBgColor: "hover:bg-purple-200",
-      iconBg: "bg-purple-500"
+      iconBg: "bg-purple-500",
+      link: "/OurSerSection/AdvertisingServices"
     },
     influencing: {
       title: "Influencing",
@@ -35,7 +39,8 @@ const OurServices = () => {
       image: "/assets/influencing-services.png",
       bgColor: "bg-pink-100",
       hoverBgColor: "hover:bg-pink-200",
-      iconBg: "bg-pink-500"
+      iconBg: "bg-pink-500",
+      link: "/OurSerSection/InfluencingServices"
     },
     socialMedia: {
       title: "Social Media Management",
@@ -44,7 +49,8 @@ const OurServices = () => {
       image: "/assets/social-media.png",
       bgColor: "bg-indigo-100",
       hoverBgColor: "hover:bg-indigo-200",
-      iconBg: "bg-indigo-500"
+      iconBg: "bg-indigo-500",
+      link: "/OurSerSection/SocialMediaServices"
     },
     campaignManagement: {
       title: "Campaign Management",
@@ -53,7 +59,8 @@ const OurServices = () => {
       image: "/assets/capaign-manager.png",
       bgColor: "bg-green-100",
       hoverBgColor: "hover:bg-green-200",
-      iconBg: "bg-green-500"
+      iconBg: "bg-green-500",
+      link: "/OurSerSection/CampaignManagementServices"
     },
     brandLaunch: {
       title: "Brand Launch",
@@ -62,7 +69,8 @@ const OurServices = () => {
       image: "/assets/brand launch.png",
       bgColor: "bg-yellow-100",
       hoverBgColor: "hover:bg-yellow-200",
-      iconBg: "bg-yellow-500"
+      iconBg: "bg-yellow-500",
+      link: "/OurSerSection/BrandLaunchServices"
     },
     survey: {
       title: "Survey",
@@ -71,8 +79,14 @@ const OurServices = () => {
       image: "/assets/survey.png",
       bgColor: "bg-red-100",
       hoverBgColor: "hover:bg-red-200",
-      iconBg: "bg-red-500"
+      iconBg: "bg-red-500",
+      link: "/OurSerSection/SurveyServices"
     },
+  };
+
+  const handleServiceClick = (key) => {
+    setActiveService(key);
+    navigate(services[key].link);
   };
 
   return (
@@ -97,8 +111,8 @@ const OurServices = () => {
       {/* Main Content */}
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="text-center mb-12">
-          <p className="text-gray-700 font-semibold text-lg mb-2">OUR SERVICES</p>
-          <h2 className="text-4xl font-bold mb-4" data-aos="fade-down">
+          <p className="text-black font-bold text-3xl mb-2">OUR SERVICES</p>
+          <h2 className="text-xl font-semibold mb-4" data-aos="fade-down">
             Comprehensive <span style={{ color: '#333' }}>Solutions</span> For Your Needs
           </h2>
         </div>
@@ -112,7 +126,7 @@ const OurServices = () => {
             <div
               key={key}
               className={`w-[150px] p-4 rounded-full aspect-square flex flex-col items-center justify-center shadow-lg cursor-pointer transition-all duration-300 hover:transform hover:scale-105 ${service.bgColor} ${service.hoverBgColor}`}
-              onClick={() => setActiveService(key)}
+              onClick={() => handleServiceClick(key)}
               style={{
                 border: activeService === key ? '2px solid rgba(0,0,0,0.2)' : 'none'
               }}

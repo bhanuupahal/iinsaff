@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import Banner1 from "./Banner1";
 import Services from "./Services";
 import OurServices from './OurServices';
-// import Solution from "./Solution";
-// import TopicsComponent from "./TopicComponent";
 import OwerClientSlider from "./OwerClientSlider";
 import WhyUs from "./WhyUs";
 import Card from "./Card";
 import BrandScrolling from "./BrandScrolling";
 import OrganizationScrolling from "./OrganizationScrolling";
+import WebsiteOverview from "./WebsiteOverview";
 import AboutUs from "./Aboutus";
 import ContactUs from "./ContactUs";
 
@@ -37,17 +36,13 @@ const Home = () => {
           />
         </div>
 
-        <OurServices />
-        {/* <Solution /> */}
-        {/* <TopicsComponent
-          activeTopic={activeTopic}
-          setActiveTopic={setActiveTopic}
-        /> */}
-        <OwerClientSlider />
+        <WebsiteOverview />
         <WhyUs />
         <Card />
         <BrandScrolling />
         <OrganizationScrolling />
+        <OurServices />
+        <OwerClientSlider />
         <AboutUs />
         <ContactUs />
       </div>
