@@ -6,7 +6,7 @@ import InfluencersService from "./InfluencersServices";
 import DrLawyer from "./DrLawyer";
 import MarketerService from "./MarketerService";
 import Newspaper from "./Newspaper";
-import Website from "./Website";
+import Website from "../ServiceSection/Website";
 
 const Services = ({ activeCareer, setActiveCareer }) => {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
       iconBgColor: "bg-blue-600",
       iconColor: "text-blue-600",
       image: "/assets/reporter.png",
-      link: "/register?role=Reporter"
+      link: "/auth/login?redirect=reporter/dashboard"
     },
     {
       title: "Advertiser",
@@ -52,7 +52,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
       iconBgColor: "bg-orange-500",
       iconColor: "text-orange-600",
       image: "/assets/ads-career.png",
-      link: "/register?role=Advertiser"
+      link: "/auth/register?role=Advertiser"
     },
     {
       title: "Marketer",
@@ -61,7 +61,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
       iconBgColor: "bg-red-500",
       iconColor: "text-red-600",
       image: "/assets/marketer.png",
-      link: "/marketer"
+      link: "/auth/login"
     },
     {
       title: "Influencer",
@@ -70,7 +70,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
       iconBgColor: "bg-blue-600",
       iconColor: "text-blue-600",
       image: "/assets/influencer-career.png",
-      link: "/register?role=Influencer"
+      link: "/auth/register?role=Influencer"
     },
     {
       title: "Join Organization ",
@@ -79,7 +79,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
       iconBgColor: "bg-yellow-500",
       iconColor: "text-yellow-600",
       image: "/assets/lawyer.png",
-      link: "/JoinIinsaf"
+      link: "/auth/login"
     },
     {
       title: "Newspaper",
@@ -88,7 +88,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
       iconBgColor: "bg-red-500",
       iconColor: "text-red-600",
       image: "/assets/marketer.png",
-      link: "/Newspaper"
+      link: "/auth/login"
     },
     {
       title: "Website",
@@ -97,7 +97,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
       iconBgColor: "bg-blue-500",
       iconColor: "text-blue-600",
       image: "/assets/marketer.png",
-      link: "/"
+      link: "/auth/login"
     },
   ];
 
@@ -273,3 +273,4 @@ const Services = ({ activeCareer, setActiveCareer }) => {
 };
 
 export default Services;
+

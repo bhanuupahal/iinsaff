@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Banner1 from "./Banner1";
-import Services from "./Services";
+// Fix the import path for Services
+import Services from "../ServiceSection/Services";
 import OurServices from './OurServices';
 import OwerClientSlider from "./OwerClientSlider";
 import WhyUs from "./WhyUs";

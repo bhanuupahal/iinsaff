@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faEye, faEyeSlash, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -25,25 +26,33 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    try {
-      // Replace this with your actual API call
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        navigate('/');
-        window.location.reload();
-      } else {
-        setError('Invalid credentials');
-      }
+    try {
+      // Mock successful login response
+      const mockUserData = {
+        token: 'fake-jwt-token-for-testing',
+        user: {
+          id: 1,
+          name: 'Test User',
+          email: formData.email,
+          role: 'reporter', // or any default role you want to test
+          avatar: 'https://via.placeholder.com/150',
+        }
+      };
+
+      // Store mock data in localStorage
+      localStorage.setItem('token', mockUserData.token);
+      localStorage.setItem('user', JSON.stringify(mockUserData.user));
+      
+      // Get redirect URL from query parameters
+      const searchParams = new URLSearchParams(location.search);
+      const redirectPath = searchParams.get('redirect') || '/';
+      
+      // Navigate to redirect path
+      navigate('/' + redirectPath);
     } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {
@@ -195,7 +204,7 @@ const Login = () => {
 
               <div className="text-center text-sm">
                 <span className="text-gray-600">Don't have an account? </span>
-                <Link to="/register" className="text-blue-600 hover:text-blue-500 font-medium">
+                <Link to="/auth/register" className="text-blue-600 hover:text-blue-500 font-medium">
                   Sign up
                 </Link>
               </div>
@@ -208,3 +217,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+

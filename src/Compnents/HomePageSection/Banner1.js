@@ -91,7 +91,14 @@ const Banner1 = () => {
             <div className="flex flex-col md:flex-row justify-center gap-3 mt-6 animate-slide-up delay-200">
               <button
                 className="quote-btn1 px-6 py-3 text-white font-bold rounded-lg bg-red-700 hover:bg-red-600 transition-all duration-300"
-                onClick={() => navigation("/voice")}
+                onClick={() => {
+                  const token = localStorage.getItem('token');
+                  if (!token) {
+                    navigation("/auth/login");
+                  } else {
+                    navigation("/voice");
+                  }
+                }}
               >
                 Raise Your Voice
               </button>
@@ -100,20 +107,41 @@ const Banner1 = () => {
             <div className="flex flex-col md:flex-row justify-center gap-3 mt-3 animate-slide-up delay-200">
               <button
                 className="quote-btn px-6 py-3 text-white bg-green-700 hover:bg-green-800 font-bold rounded-lg transition-all duration-300"
-                onClick={() => navigation("/darbar-register")}
+                onClick={() => {
+                  const token = localStorage.getItem('token');
+                  if (!token) {
+                    navigation("/auth/login");
+                  } else {
+                    navigation("/darbar-register");
+                  }
+                }}
               >
                 जनसेवा दरबार
               </button>
               
               <button
                 className="quote-btn px-6 py-3 text-white bg-blue-950 hover:bg-blue-700 font-bold rounded-lg transition-all duration-300"
-                onClick={() => navigation("/register?role=Advertiser")}
+                onClick={() => {
+                  const token = localStorage.getItem('token');
+                  if (!token) {
+                    navigation("/auth/login");
+                  } else {
+                    navigation("/register?role=Advertiser");
+                  }
+                }}
               >
                 Press Conference
               </button>
               
               <button
-                onClick={() => navigation("/podcast")}
+                onClick={() => {
+                  const token = localStorage.getItem('token');
+                  if (!token) {
+                    navigation("/auth/login");
+                  } else {
+                    navigation("/podcast");
+                  }
+                }}
                 className="quote-btn podcast-btn px-6 py-3 text-white font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <svg
@@ -196,5 +224,7 @@ const Banner1 = () => {
 };
 
 export default Banner1;
+
+
 
 

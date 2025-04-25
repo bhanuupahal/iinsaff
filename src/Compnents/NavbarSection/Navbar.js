@@ -66,7 +66,7 @@ const Navbar = () => {
   };
 
   const handleLogin = () => {
-    navigate('/login');
+    navigate('/auth/login');
   };
 
   const handleLogout = () => {
@@ -199,14 +199,14 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <button
-                  onClick={handleLogin}
+                <Link
+                  to="/auth/login"
                   className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors duration-200 shadow-md"
                 >
                   Login
-                </button>
+                </Link>
                 <Link
-                  to="/register"
+                  to="/auth/register"
                   className="px-4 py-2 text-sm font-medium text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-200 shadow-sm"
                 >
                   Register
@@ -350,17 +350,15 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <div className="flex flex-col space-y-3">
-                    <button
-                      onClick={() => {
-                        handleLogin();
-                        closeNavAndNavigate();
-                      }}
-                      className="w-full px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-medium"
+                    <Link
+                      to="/auth/login"
+                      onClick={closeNavAndNavigate}
+                      className="w-full px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg text-lg font-medium text-center"
                     >
                       Login
-                    </button>
+                    </Link>
                     <Link
-                      to="/register"
+                      to="/auth/register"
                       onClick={closeNavAndNavigate}
                       className="w-full px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 text-center text-lg font-medium"
                     >
