@@ -38,7 +38,7 @@ const Login = () => {
           id: 1,
           name: 'Test User',
           email: formData.email,
-          role: 'reporter', // or any default role you want to test
+          role: formData.role || 'user',
           avatar: 'https://via.placeholder.com/150',
         }
       };
@@ -47,12 +47,9 @@ const Login = () => {
       localStorage.setItem('token', mockUserData.token);
       localStorage.setItem('user', JSON.stringify(mockUserData.user));
       
-      // Get redirect URL from query parameters
-      const searchParams = new URLSearchParams(location.search);
-      const redirectPath = searchParams.get('redirect') || '/';
-      
-      // Navigate to redirect path
-      navigate('/' + redirectPath);
+      // Navigate to home page
+      navigate('/');
+      window.location.reload();
     } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {

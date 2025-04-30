@@ -57,25 +57,28 @@ const Register = () => {
     }
 
     setIsLoading(true);
-    try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+    
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        navigate('/');
-        window.location.reload();
-      } else {
-        const data = await response.json();
-        setError(data.message || 'Registration failed');
-      }
+    try {
+      // Mock successful registration response
+      const mockUserData = {
+        token: 'fake-jwt-token-for-testing',
+        user: {
+          id: 1,
+          ...formData,
+          avatar: 'https://via.placeholder.com/150',
+        }
+      };
+
+      // Store mock data in localStorage
+      localStorage.setItem('token', mockUserData.token);
+      localStorage.setItem('user', JSON.stringify(mockUserData.user));
+      
+      // Navigate to home page
+      navigate('/');
+      window.location.reload();
     } catch (err) {
       setError('An error occurred. Please try again.');
     } finally {

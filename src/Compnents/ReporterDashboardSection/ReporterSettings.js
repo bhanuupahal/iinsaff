@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ReporterSettings = () => {
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
+
+  const handlePasswordChange = (e) => {
+    e.preventDefault();
+    // Add password change logic here
+    setIsPasswordModalOpen(false);
+  };
+
   return (
     <div>
       <h1 className="text-2xl font-bold mb-6">Settings</h1>
@@ -50,7 +58,10 @@ const ReporterSettings = () => {
           <div>
             <h2 className="text-xl font-semibold mb-4">Security</h2>
             <div className="space-y-4">
-              <button className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300">
+              <button 
+                onClick={() => setIsPasswordModalOpen(true)} 
+                className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300"
+              >
                 Change Password
               </button>
               <button className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300">
@@ -66,6 +77,53 @@ const ReporterSettings = () => {
           </button>
         </div>
       </div>
+
+      {/* Password Change Modal - Moved inside return statement */}
+      {isPasswordModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-96">
+            <h3 className="text-xl font-semibold mb-4">Change Password</h3>
+            <form onSubmit={handlePasswordChange} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Current Password</label>
+                <input
+                  type="password"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">New Password</label>
+                <input
+                  type="password"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Confirm New Password</label>
+                <input
+                  type="password"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                />
+              </div>
+              <div className="flex justify-end space-x-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setIsPasswordModalOpen(false)}
+                  className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                >
+                  Update Password
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
