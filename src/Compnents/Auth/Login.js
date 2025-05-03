@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,13 +7,18 @@ import { faEnvelope, faLock, faEye, faEyeSlash, faUser } from '@fortawesome/free
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-  const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  
+  // Get role from URL query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const roleFromUrl = queryParams.get('role');
+  
+  const [formData, setFormData] = useState({
+    email: roleFromUrl === 'advertiser' ? 'advertiser@example.com' : '',
+    password: ''
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -26,31 +31,39 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     try {
-      // Mock successful login response
-      const mockUserData = {
-        token: 'fake-jwt-token-for-testing',
+      // For testing purposes, determine role explicitly based on email
+      const isAdvertiser = formData.email.toLowerCase().includes('advertiser');
+      
+      // Simulated successful login for testing
+      const mockResponse = {
+        token: 'fake-test-token-12345',
         user: {
           id: 1,
-          name: 'Test User',
           email: formData.email,
-          role: formData.role || 'user',
-          avatar: 'https://via.placeholder.com/150',
+          name: 'Test User',
+          role: isAdvertiser ? 'advertiser' : 'reporter'
         }
       };
 
-      // Store mock data in localStorage
-      localStorage.setItem('token', mockUserData.token);
-      localStorage.setItem('user', JSON.stringify(mockUserData.user));
+      console.log("Login successful:", mockResponse.user.role); // Debug log
       
-      // Navigate to home page
-      navigate('/');
-      window.location.reload();
+      // Store mock user data in localStorage
+      localStorage.setItem('token', mockResponse.token);
+      localStorage.setItem('user', JSON.stringify(mockResponse.user));
+      
+      // Navigate based on user role
+      if (isAdvertiser) {
+        console.log("Redirecting to advertiser dashboard"); // Debug log
+        window.location.href = '/advertiser/dashboard';
+      } else {
+        console.log("Redirecting to reporter dashboard"); // Debug log
+        window.location.href = '/reporter/dashboard';
+      }
     } catch (err) {
+      console.error("Login error:", err);
       setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
@@ -214,6 +227,10 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
+
 
 
 

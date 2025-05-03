@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaWallet, FaUserCircle, FaCog, FaCheck, FaTimes } from "react-icons/fa";
 
-const ReporterHeader = ({ isProfileComplete }) => {
+const AdvertiserHeader = ({ isProfileComplete }) => {
   const navigate = useNavigate();
 
   return (
@@ -10,8 +10,8 @@ const ReporterHeader = ({ isProfileComplete }) => {
       <div className="flex items-center space-x-4">
         {/* Wallet Button */}
         <button
-          onClick={() => navigate('/reporter/wallet')}
-          className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-300 flex items-center gap-2"
+          onClick={() => navigate('/advertiser/wallet')}
+          className="p-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300 flex items-center gap-2"
           title="Wallet"
         >
           <FaWallet className="w-5 h-5" />
@@ -21,8 +21,8 @@ const ReporterHeader = ({ isProfileComplete }) => {
         {/* Profile Button */}
         <div className="relative">
           <button
-            onClick={() => navigate('/reporter/profile')}
-            className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-300"
+            onClick={() => navigate('/advertiser/profile')}
+            className="p-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300"
             title="Profile"
           >
             <FaUserCircle className="w-5 h-5" />
@@ -42,8 +42,8 @@ const ReporterHeader = ({ isProfileComplete }) => {
 
         {/* Settings Button */}
         <button
-          onClick={() => navigate('/reporter/settings')}
-          className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-300"
+          onClick={() => navigate('/advertiser/settings')}
+          className="p-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all duration-300"
           title="Settings"
         >
           <FaCog className="w-5 h-5" />
@@ -53,9 +53,4 @@ const ReporterHeader = ({ isProfileComplete }) => {
   );
 };
 
-export default ReporterHeader;
-
-
-
-
-
+export default AdvertiserHeader;

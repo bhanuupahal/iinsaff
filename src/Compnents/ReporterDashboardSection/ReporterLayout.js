@@ -196,12 +196,7 @@ const ReporterLayout = () => {
           </button>
         </nav>
 
-        {/* Bottom Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-gradient-to-t from-blue-50 to-white">
-          <div className="text-sm text-gray-500 text-center">
-            IINSAF Reporter Portal
-          </div>
-        </div>
+       
       </div>
 
       {/* Main Content Area */}

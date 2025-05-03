@@ -57,30 +57,37 @@ const Register = () => {
     }
 
     setIsLoading(true);
+    setError('');
     
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
     try {
-      // Mock successful registration response
-      const mockUserData = {
-        token: 'fake-jwt-token-for-testing',
-        user: {
-          id: 1,
-          ...formData,
-          avatar: 'https://via.placeholder.com/150',
-        }
-      };
-
-      // Store mock data in localStorage
-      localStorage.setItem('token', mockUserData.token);
-      localStorage.setItem('user', JSON.stringify(mockUserData.user));
+      // Create a copy of formData without confirmPassword
+      const dataToSend = { ...formData };
+      delete dataToSend.confirmPassword;
+      
+      // Send data to backend API
+      const response = await fetch('https://your-backend-api-url.com/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+      
+      // Store user data in localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
       
       // Navigate to home page
       navigate('/');
       window.location.reload();
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError(err.message || 'An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -356,7 +363,7 @@ const Register = () => {
 
               <p className="mt-4 text-center text-sm text-gray-600">
                 Already have an account?{" "}
-                <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
+                <Link to="/auth/login" className="font-medium text-blue-600 hover:text-blue-500">
                   Sign in
                 </Link>
               </p>

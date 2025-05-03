@@ -7,7 +7,7 @@ const AdminHeader = () => {
   const adminName = localStorage.getItem('adminName') || 'Admin';
 
   return (
-    <header className="bg-white h-16 px-6 flex items-center justify-between border-b">
+    <header className="flex-shrink-0 bg-white h-16 px-6 flex items-center justify-between border-b shadow-sm">
       {/* Left Side - Logo and Welcome Message */}
       <div className="flex items-center space-x-4">
         <img 

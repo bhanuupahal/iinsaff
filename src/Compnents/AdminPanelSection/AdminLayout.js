@@ -39,8 +39,7 @@ const AdminLayout = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("adminToken");
-        localStorage.removeItem("adminUser"); // Also remove adminUser data
-        navigate("/admin/login"); // Changed from /adminlogin to /admin/login
+        navigate("/adminlogin");
         Swal.fire("Logged Out", "You have been logged out.", "success");
       }
     });
@@ -305,12 +304,12 @@ const AdminLayout = () => {
   ];
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Sidebar */}
-      <div className="w-80 bg-white shadow-2xl rounded-r-3xl">
-        {/* Header */}
+    <div className="flex h-screen bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+      {/* Fixed Sidebar */}
+      <div className="w-80 h-screen flex-shrink-0 bg-white shadow-2xl rounded-r-3xl">
+        {/* Sidebar Header */}
         <div className="relative">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-800 h-16  flex items-center justify-center">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 h-16 flex items-center justify-center">
             <h2 className="text-2xl font-bold text-white">
               Admin Panel
             </h2>
@@ -318,8 +317,8 @@ const AdminLayout = () => {
           <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-blue-400 to-blue-600 opacity-50 blur-sm"></div>
         </div>
 
-        {/* Navigation Menu */}
-        <div className="overflow-y-auto h-[calc(100vh-5rem)] px-4 py-6 custom-scrollbar">
+        {/* Scrollable Sidebar Content */}
+        <div className="overflow-y-auto h-[calc(100vh-4rem)] px-4 py-6 custom-scrollbar">
           {menuItems.map((section, idx) => (
             <div key={idx} className="mb-6">
               <h2 className={`font-bold uppercase text-xs tracking-wider mb-3 px-2 ${section.titleColor}`}>
@@ -380,11 +379,16 @@ const AdminLayout = () => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Fixed Header */}
         <AdminHeader />
-        <div className="p-8 flex-1">
-          <div className="bg-white rounded-3xl shadow-sm p-8 min-h-[calc(100vh-8rem)]">
-            <Outlet />
+        
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto bg-gradient-to-br from-gray-50 to-gray-100">
+          <div className="p-8">
+            <div className="bg-white rounded-3xl shadow-sm p-8 min-h-[calc(100vh-8rem)]">
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>

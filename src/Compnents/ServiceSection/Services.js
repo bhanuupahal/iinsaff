@@ -52,7 +52,7 @@ const Services = ({ activeCareer, setActiveCareer }) => {
       iconBgColor: "bg-orange-500",
       iconColor: "text-orange-600",
       image: "/assets/ads-career.png",
-      link: "/auth/register?role=Advertiser"
+      link: "/auth/login?role=advertiser"
     },
     {
       title: "Marketer",
@@ -273,4 +273,5 @@ const Services = ({ activeCareer, setActiveCareer }) => {
 };
 
 export default Services;
+
 
