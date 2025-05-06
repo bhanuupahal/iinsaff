@@ -1,5 +1,5 @@
 // Base URL for API calls
-export const baseUrl = "https://api.example.com/api/"; // Replace with your actual API URL
+export const baseUrl = "http://localhost:5000"; // Replace with your actual API URL
 
 // Function to load Razorpay script
 export const loadRazorpay = () => {
@@ -12,5 +12,4 @@ export const loadRazorpay = () => {
     document.body.appendChild(script);
   });
 };
-
 

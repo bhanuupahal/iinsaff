@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faEye, faEyeSlash, faUser } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios'; // Make sure to install axios: npm install axios
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,61 +11,83 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   
-  // Get role from URL query parameters
-  const queryParams = new URLSearchParams(location.search);
-  const roleFromUrl = queryParams.get('role');
-  
   const [formData, setFormData] = useState({
-    email: roleFromUrl === 'advertiser' ? 'advertiser@example.com' : '',
+    email: '',
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-    setError(''); // Clear error when user types
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
-    
-    try {
-      // For testing purposes, determine role explicitly based on email
-      const isAdvertiser = formData.email.toLowerCase().includes('advertiser');
-      
-      // Simulated successful login for testing
-      const mockResponse = {
-        token: 'fake-test-token-12345',
-        user: {
-          id: 1,
-          email: formData.email,
-          name: 'Test User',
-          role: isAdvertiser ? 'advertiser' : 'reporter'
-        }
-      };
 
-      console.log("Login successful:", mockResponse.user.role); // Debug log
-      
-      // Store mock user data in localStorage
-      localStorage.setItem('token', mockResponse.token);
-      localStorage.setItem('user', JSON.stringify(mockResponse.user));
-      
-      // Navigate based on user role
-      if (isAdvertiser) {
-        console.log("Redirecting to advertiser dashboard"); // Debug log
-        window.location.href = '/advertiser/dashboard';
+    try {
+      // First, check if email exists
+      const checkEmailResponse = await axios.post('YOUR_API_ENDPOINT/auth/check-email', {
+        email: formData.email
+      });
+
+      if (!checkEmailResponse.data.exists) {
+        // Show error message and redirect to register page after a short delay
+        setError('Email is not registered. Redirecting to registration...');
+        setIsLoading(false);
+        setTimeout(() => {
+          navigate('/auth/register', { 
+            state: { email: formData.email } // Pass email to pre-fill registration form
+          });
+        }, 2000);
+        return;
+      }
+
+      // If email exists, proceed with login
+      const loginResponse = await axios.post('YOUR_API_ENDPOINT/auth/login', {
+        email: formData.email,
+        password: formData.password
+      });
+
+      if (loginResponse.data && loginResponse.data.token) {
+        // Store authentication data
+        localStorage.setItem('token', loginResponse.data.token);
+        localStorage.setItem('user', JSON.stringify(loginResponse.data.user));
+
+        // Navigate based on user role
+        const userRole = loginResponse.data.user.role.toLowerCase();
+        const dashboardRoutes = {
+          advertiser: '/advertiser/dashboard',
+          reporter: '/reporter/dashboard',
+          influencer: '/influencer/dashboard'
+        };
+
+        navigate(dashboardRoutes[userRole] || '/dashboard');
       } else {
-        console.log("Redirecting to reporter dashboard"); // Debug log
-        window.location.href = '/reporter/dashboard';
+        setError('Invalid credentials');
       }
     } catch (err) {
-      console.error("Login error:", err);
-      setError('An error occurred. Please try again.');
+      if (err.response?.status === 401) {
+        setError('Invalid password. Please try again.');
+      } else {
+        setError(
+          err.response?.data?.message || 
+          'Login failed. Please try again later.'
+        );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -227,6 +250,17 @@ const Login = () => {
 };
 
 export default Login;
+
+// In your Register component
+const Register = () => {
+  const location = useLocation();
+  const [formData, setFormData] = useState({
+    email: location.state?.email || '',
+    // ...other form fields
+  });
+  
+  // ...rest of your register component
+};
 
 
 
