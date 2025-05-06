@@ -12,7 +12,7 @@ const Login = () => {
   const [error, setError] = useState('');
   
   const [formData, setFormData] = useState({
-    email: '',
+    emailOrMobile: '', // Changed from email to emailOrMobile
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -39,54 +39,45 @@ const Login = () => {
     setError('');
 
     try {
-      // First, check if email exists
-      const checkEmailResponse = await axios.post('YOUR_API_ENDPOINT/auth/check-email', {
-        email: formData.email
+      // Check if user exists
+      const checkUserResponse = await axios.post('/auth/check-user', {
+        emailOrMobile: formData.emailOrMobile
       });
 
-      if (!checkEmailResponse.data.exists) {
-        // Show error message and redirect to register page after a short delay
-        setError('Email is not registered. Redirecting to registration...');
+      if (!checkUserResponse.data.exists) {
+        setError('Account not found. Redirecting to registration...');
         setIsLoading(false);
         setTimeout(() => {
           navigate('/auth/register', { 
-            state: { email: formData.email } // Pass email to pre-fill registration form
+            state: { emailOrMobile: formData.emailOrMobile }
           });
         }, 2000);
         return;
       }
 
-      // If email exists, proceed with login
-      const loginResponse = await axios.post('YOUR_API_ENDPOINT/auth/login', {
-        email: formData.email,
+      // If user exists, attempt login
+      const loginResponse = await axios.post('/auth/login', {
+        emailOrMobile: formData.emailOrMobile,
         password: formData.password
       });
 
-      if (loginResponse.data && loginResponse.data.token) {
-        // Store authentication data
+      if (loginResponse.data?.token) {
         localStorage.setItem('token', loginResponse.data.token);
         localStorage.setItem('user', JSON.stringify(loginResponse.data.user));
 
-        // Navigate based on user role
-        const userRole = loginResponse.data.user.role.toLowerCase();
         const dashboardRoutes = {
           advertiser: '/advertiser/dashboard',
           reporter: '/reporter/dashboard',
           influencer: '/influencer/dashboard'
         };
 
-        navigate(dashboardRoutes[userRole] || '/dashboard');
-      } else {
-        setError('Invalid credentials');
+        navigate(dashboardRoutes[loginResponse.data.user.role.toLowerCase()] || '/dashboard');
       }
     } catch (err) {
       if (err.response?.status === 401) {
-        setError('Invalid password. Please try again.');
+        setError('Invalid credentials. Please try again.');
       } else {
-        setError(
-          err.response?.data?.message || 
-          'Login failed. Please try again later.'
-        );
+        setError(err.response?.data?.message || 'Login failed');
       }
     } finally {
       setIsLoading(false);
@@ -174,13 +165,15 @@ const Login = () => {
                     <FontAwesomeIcon icon={faEnvelope} className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500" />
                   </div>
                   <input
-                    name="email"
-                    type="email"
+                    name="emailOrMobile"
+                    type="text"
                     required
                     className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="Email address"
-                    value={formData.email}
+                    placeholder="Email or Mobile Number"
+                    value={formData.emailOrMobile}
                     onChange={handleChange}
+                    pattern="^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|([0-9]{10})$"
+                    title="Please enter a valid email address or 10-digit mobile number"
                   />
                 </div>
 
@@ -255,7 +248,7 @@ export default Login;
 const Register = () => {
   const location = useLocation();
   const [formData, setFormData] = useState({
-    email: location.state?.email || '',
+    emailOrMobile: location.state?.emailOrMobile || '',
     // ...other form fields
   });
   
