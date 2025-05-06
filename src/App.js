@@ -61,6 +61,21 @@ import AdvertiserLayout from './Compnents/AdvertiserDashboardSection/AdvertiserL
 import AdvertiserDashboard from './Compnents/AdvertiserDashboardSection/AdvertiserDashboard';
 import PostAdvertisement from './Compnents/AdvertiserDashboardSection/AdvertiserLeads/PostAdvertisement';
 
+// Import Raise Voice Section
+import RaiseLogin from './Compnents/RaiseVoiceSection/RaiseLogin';
+import RaiseRegister from './Compnents/RaiseVoiceSection/RaiseRegister';
+import RaiseForgotPassword from './Compnents/RaiseVoiceSection/RaiseForgotPassword';
+
+// Import Press Conference Section
+import PressLogin from './Compnents/PressconferenceSection/PressLogin';
+import PressRegister from './Compnents/PressconferenceSection/PressRegister';
+import PressForgotPassword from './Compnents/PressconferenceSection/PressForgotPassword';
+
+// Import Darbar Section
+import DarbarLogin from './Compnents/DarbarSection/DarbarLogin';
+import DarbarRegister from './Compnents/DarbarSection/DarbarRegister';
+import DarbarForgotPassword from './Compnents/DarbarSection/DarbarForgotPassword';
+
 // Create placeholder components for Advertiser Dashboard
 const PlaceholderComponent = ({ title }) => (
   <div className="p-6">
@@ -124,11 +139,25 @@ function App() {
           <Route path="/OurSerSection/CampaignManagementServices" element={<CampaignManagement />} />
           <Route path="/OurSerSection/BrandLaunchServices" element={<BrandLaunch />} />
           <Route path="/OurSerSection/SurveyServices" element={<Survey />} />
+          <Route path="/raise-voice/login" element={<RaiseLogin />} />
+          <Route path="/raise-voice/register" element={<RaiseRegister />} />
+          <Route path="/raise-voice/forgot-password" element={<RaiseForgotPassword />} />
           {/* Admin Auth Routes - These should be public */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/register" element={<AdminRegister />} />
           <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
-
+          {/* Press Conference Routes */}
+          <Route path="/press-conference/login" element={<PressLogin />} />
+          <Route path="/press-conference/register" element={<PressRegister />} />
+          <Route path="/press-conference/forgot-password" element={<PressForgotPassword />} />
+          {/* Darbar Routes */}
+          <Route path="/darbar/login" element={<DarbarLogin />} />
+          <Route path="/darbar/register" element={<DarbarRegister />} />
+          <Route path="/darbar/forgot-password" element={<DarbarForgotPassword />} />
+          
+            
+          
+          
           {/* Protected Admin Dashboard Routes */}
           <Route path="/admin" element={
             <ProtectedAdminRoute>
@@ -225,27 +254,6 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

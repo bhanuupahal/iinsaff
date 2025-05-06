@@ -94,7 +94,7 @@ const Banner1 = () => {
                 onClick={() => {
                   const token = localStorage.getItem('token');
                   if (!token) {
-                    navigation("/auth/login");
+                    navigation("/raise-voice/login");
                   } else {
                     navigation("/voice");
                   }
@@ -108,11 +108,11 @@ const Banner1 = () => {
               <button
                 className="quote-btn px-6 py-3 text-white bg-green-700 hover:bg-green-800 font-bold rounded-lg transition-all duration-300"
                 onClick={() => {
-                  const token = localStorage.getItem('token');
+                  const token = localStorage.getItem('darbarToken');
                   if (!token) {
-                    navigation("/auth/login");
+                    navigation("/darbar/login");
                   } else {
-                    navigation("/darbar-register");
+                    navigation("/darbar/dashboard");
                   }
                 }}
               >
@@ -122,11 +122,11 @@ const Banner1 = () => {
               <button
                 className="quote-btn px-6 py-3 text-white bg-blue-950 hover:bg-blue-700 font-bold rounded-lg transition-all duration-300"
                 onClick={() => {
-                  const token = localStorage.getItem('token');
+                  const token = localStorage.getItem('pressToken');
                   if (!token) {
-                    navigation("/auth/login");
+                    navigation("/press-conference/login");
                   } else {
-                    navigation("/register?role=Advertiser");
+                    navigation("/press-conference/dashboard");
                   }
                 }}
               >
